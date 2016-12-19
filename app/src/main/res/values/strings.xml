@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">BookTrace</string>
+    <string name="about_txt">This is our first attempt on Android!\nWe hope you will enjoy this app.\n\n\nContributors:\nQinghao Huang \nChao Gao\nZhenzao Wen\nZheer Xu \nQiang Lin</string>
+    <string name="action_settings">Setting</string>
+</resources>

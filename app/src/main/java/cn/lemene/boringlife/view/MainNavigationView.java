@@ -17,7 +17,7 @@ import cn.lemene.boringlife.R;
  */
 
 public class MainNavigationView extends NavigationView
-        implements NavigationView.OnNavigationItemSelectedListener {
+         {
     private DrawerLayout mDrawer;
 
     public MainNavigationView(Context context) {
@@ -30,9 +30,9 @@ public class MainNavigationView extends NavigationView
 
     public MainNavigationView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        setNavigationItemSelectedListener(this);
+        //setNavigationItemSelectedListener(this);
     }
-
+/*
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -58,6 +58,7 @@ public class MainNavigationView extends NavigationView
         closeDrawer();
         return true;
     }
+    */
 
     public void setDrawer(DrawerLayout drawer) {
         mDrawer = drawer;

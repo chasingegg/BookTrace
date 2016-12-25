@@ -1,6 +1,8 @@
 package cn.lemene.boringlife.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -9,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
 
 import com.orhanobut.logger.Logger;
 
@@ -41,6 +44,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         init();
+
+        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
+                selectDrawerItem(menuItem);
+                return true;
+            }
+        });
     }
 
     @Override
@@ -75,5 +86,31 @@ public class MainActivity extends AppCompatActivity {
         mDrawer.addDrawerListener(toggle);
         toggle.syncState();
         mNavigationView.setDrawer(mDrawer);
+    }
+
+
+    private void selectDrawerItem(MenuItem menuItem) {
+
+
+        switch (menuItem.getItemId()) {
+            case R.id.nav_camera:
+                Intent intent = new Intent(this, SignUpActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.nav_gallery:
+                Intent intent1 = new Intent(this, SignInActivity.class);
+                startActivity(intent1);
+                break;
+            case R.id.nav_slideshow:
+                Intent intent2 = new Intent(this, AboutUsActivity.class);
+                startActivity(intent2);
+                break;
+
+            default:
+
+                break;
+        }
+
+
     }
 }

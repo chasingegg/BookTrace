@@ -1,22 +1,14 @@
 package cn.lemene.boringlife.view;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.util.AttributeSet;
 import android.view.MenuItem;
-import android.view.View;
 
 import cn.lemene.boringlife.R;
-import cn.lemene.boringlife.activity.AboutUsActivity;
-import cn.lemene.boringlife.activity.MainActivity;
-import cn.lemene.boringlife.activity.SignUpActivity;
-
-import static android.R.attr.fragment;
-
 
 /**
  * 侧滑导航栏组件
@@ -25,7 +17,7 @@ import static android.R.attr.fragment;
  */
 
 public class MainNavigationView extends NavigationView
-         {
+        implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout mDrawer;
 
     public MainNavigationView(Context context) {
@@ -38,15 +30,13 @@ public class MainNavigationView extends NavigationView
 
     public MainNavigationView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        //setNavigationItemSelectedListener(this);
+        setNavigationItemSelectedListener(this);
     }
-/*
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_camera:
-                //startActivity(new Intent(MainActivity.this, AboutUsActivity.class));
-
                 break;
 
             case R.id.nav_gallery:
@@ -68,8 +58,6 @@ public class MainNavigationView extends NavigationView
         closeDrawer();
         return true;
     }
-
-*/
 
     public void setDrawer(DrawerLayout drawer) {
         mDrawer = drawer;

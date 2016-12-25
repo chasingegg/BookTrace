@@ -140,7 +140,6 @@ public class DBBookSearchView extends RelativeLayout
             public void onResponse(Call<QueryDBBookRespone> call, Response<QueryDBBookRespone> response) {
                 Logger.d("query book done");
                 onSearchRespone(response);
-
             }
 
             @Override

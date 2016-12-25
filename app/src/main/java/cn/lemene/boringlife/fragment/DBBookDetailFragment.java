@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -148,7 +147,6 @@ public class DBBookDetailFragment extends Fragment {
         builder.append(String.format(getString(R.string.book_tag), book.getTagString()) + "\n");
         builder.append(ratingString + "\n");
         builder.append(String.format(getString(R.string.book_web_link), book.getWebLink()) + "\n");
-        Log.d("TAG",builder.toString());
         return builder.toString();
     }
 }

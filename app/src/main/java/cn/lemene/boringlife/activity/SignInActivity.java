@@ -11,17 +11,24 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
+
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.lemene.boringlife.R;
 import cn.lemene.boringlife.interfaces.LogService;
 import cn.lemene.boringlife.module.LogResultResponse;
+import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SignInActivity extends AppCompatActivity {
@@ -29,7 +36,6 @@ public class SignInActivity extends AppCompatActivity {
 
     private static final String TAG = "SignInActivity";
     private static final int REQUEST_SIGNUP = 0;
-    public static  final  String BASE_URL = "http://.10.189.21.215:8080/";
     private boolean LogFlag;
 
     @BindView(R.id.input_email)
@@ -71,10 +77,10 @@ public class SignInActivity extends AppCompatActivity {
     {
         Log.d(TAG, "SignIn");
 
-        if (!validate()) {
+       /* if (!validate()) {
             onLoginFailed();
             return;
-        }
+        }*/
 
         _loginButton.setEnabled(false);
 
@@ -88,17 +94,27 @@ public class SignInActivity extends AppCompatActivity {
 
         // TODO: Implement your own authentication logic here.
 
-        Retrofit retrofit = new
-                Retrofit.Builder()
+        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
+        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .addInterceptor(httpLoggingInterceptor)
+                .build();
 
-                .baseUrl(BASE_URL)
-
+        Retrofit retrofit = new Retrofit.Builder().addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .client(okHttpClient)
+                .baseUrl("http://192.168.31.230:8080/")
                 .addConverterFactory(GsonConverterFactory.create())
-
                 .build();
 
         LogService.logService logSer = retrofit.create(LogService.logService.class);
-        Call<LogResultResponse> call = logSer.getLogResult(email,password);
+
+        Gson gson = new Gson();
+        HashMap<String,String> paramsMap = new HashMap<>();
+        paramsMap.put("username",email);
+        paramsMap.put("password",password);
+        String strEntity = gson.toJson(paramsMap);
+        RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json;charset=UTF-8"),strEntity);
+        Call<LogResultResponse>call = logSer.getLogResult(body);
         call.enqueue(new Callback<LogResultResponse>() {
             @Override
             public void onResponse(Call<LogResultResponse> call, Response<LogResultResponse> response) {

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.MenuItem;
+import android.view.View;
 
 import cn.lemene.boringlife.R;
 import cn.lemene.boringlife.fragment.DBBookDetailFragment;
@@ -49,5 +50,11 @@ public class DBBookDetailActivity extends SingleFragmentActivity {
     private DBBook getExtraBook() {
         Intent intent = getIntent();
         return (DBBook) intent.getSerializableExtra(KEY_BOOK);
+    }
+
+    public void Mark(View view)
+    {
+        Intent intent = new Intent(DBBookDetailActivity.this, MarkActivity.class);
+        startActivity(intent);
     }
 }

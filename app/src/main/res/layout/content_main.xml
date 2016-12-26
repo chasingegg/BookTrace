@@ -11,7 +11,7 @@
     tools:showIn="@layout/app_bar_main"
     >
 
-    <cn.lemene.boringlife.view.DBBookSearchView
+    <cn.lemene.BookTrace.view.DBBookSearchView
         android:id="@+id/search_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

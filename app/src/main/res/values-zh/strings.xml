@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">BoringLife</string>
+    <string name="app_name">BookTrace</string>
     <string name="action_settings">设置</string>
     <string name="db_error_1000">需要权限</string>
     <string name="db_error_1001">资源不存在</string>

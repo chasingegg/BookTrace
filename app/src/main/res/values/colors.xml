@@ -11,4 +11,10 @@
 
     <color name="card">#eee</color>
     <color name="text_color_hight">#000</color>
+
+    <color name="white">#ffffff</color>
+    <color name="grey">#ececec</color>
+    <color name="txtgrey">#7c7b7b</color>
+    <color name="greywhite">#aeacac</color>
+    <color name="mainColor">#4dc445</color>
 </resources>

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="cn.lemene.boringlife">
+    package="cn.lemene.BookTrace">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".manager.MyApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -28,7 +28,10 @@
         <activity android:name=".activity.SignUpActivity" />
         <activity android:name=".activity.SignInActivity" />
         <activity android:name=".activity.AboutUsActivity" />
-        <activity android:name=".activity.CommentActivity"></activity>
+        <activity
+            android:name=".activity.CommentActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity android:name=".activity.RateActivity"></activity>
     </application>
 
 </manifest>

@@ -1,10 +1,13 @@
 package cn.lemene.boringlife.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import cn.lemene.boringlife.R;
 import cn.lemene.boringlife.fragment.DBBookDetailFragment;
@@ -54,7 +57,25 @@ public class DBBookDetailActivity extends SingleFragmentActivity {
 
     public void Mark(View view)
     {
-        Intent intent = new Intent(DBBookDetailActivity.this, MarkActivity.class);
+        //Intent intent = new Intent(DBBookDetailActivity.this, MarkActivity.class);
+        //startActivity(intent);
+        AlertDialog.Builder builder = new AlertDialog.Builder(DBBookDetailActivity.this);
+        builder.setTitle("标记书籍状态");
+        final String[] str = new String[] { "正在读", "准备读", "已经读" };
+        builder.setSingleChoiceItems(str, 0, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int i) {
+                Toast.makeText(DBBookDetailActivity.this, str[i],
+                        Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+            }
+        });
+        builder.show();
+    }
+
+    public void Comment(View view)
+    {
+        Intent intent = new Intent(DBBookDetailActivity.this, CommentActivity.class);
         startActivity(intent);
     }
 }

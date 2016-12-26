@@ -28,7 +28,7 @@
         <activity android:name=".activity.SignUpActivity" />
         <activity android:name=".activity.SignInActivity" />
         <activity android:name=".activity.AboutUsActivity" />
-        <activity android:name=".activity.MarkActivity"></activity>
+        <activity android:name=".activity.CommentActivity"></activity>
     </application>
 
 </manifest>

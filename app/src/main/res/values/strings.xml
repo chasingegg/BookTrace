@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">BoringLife</string>
+    <string name="app_name">BookTrace</string>
     <string name="about_txt">This is our first attempt on Android!\nWe hope you will enjoy this app.\n\n\nContributors:\nQinghao Huang \nChao Gao\nZhenzao Wen\nZheer Xu \nQiang Lin</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -54,5 +54,8 @@
     <string name="book_author_intro">Author</string>
     <string name="book_catalog">Catalog</string>
     <string name="book_detail">Detail</string>
+
+    <string name="title_comment">评论</string>
+    <string name="msg_comment_add">添加评论</string>
 
 </resources>

@@ -12,4 +12,6 @@
 
     <dimen name="book_img_size">120dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="toolbar_elevation">0dp</dimen>
 </resources>

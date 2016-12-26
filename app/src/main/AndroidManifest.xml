@@ -27,6 +27,9 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity.SignUpActivity" />
         <activity android:name=".activity.SignInActivity" />
+        <activity
+            android:name=".activity.UserDetailActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity.AboutUsActivity" />
         <activity
             android:name=".activity.CommentActivity"

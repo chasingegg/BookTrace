@@ -46,4 +46,7 @@
     <string name="book_tag">标签: %s</string>
     <string name="book_translator">译者: %s</string>
     <string name="book_web_link">网页链接: %s</string>
+    <string name="book_want">想读的书</string>
+    <string name="book_reading">正在读的书</string>
+    <string name="book_read">读过的书</string>
 </resources>

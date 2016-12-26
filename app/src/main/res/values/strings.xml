@@ -62,4 +62,9 @@
     <string name="comment_content">输入评论内容</string>
     <string name="send">发送</string>
 
+    <string name="book_comments">Comments</string>
+    <string name="book_want">Books want to read</string>
+    <string name="book_reading">Books Reading now</string>
+    <string name="book_read">Books have read</string>
+
 </resources>

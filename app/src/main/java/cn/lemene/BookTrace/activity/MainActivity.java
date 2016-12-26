@@ -105,6 +105,10 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent2 = new Intent(this, AboutUsActivity.class);
                 startActivity(intent2);
                 break;
+            case R.id.nav_user:
+                Intent intent3 = new Intent(this, UserDetailActivity.class);
+                startActivity(intent3);
+                break;
 
             default:
 

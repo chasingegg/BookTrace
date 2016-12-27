@@ -60,7 +60,7 @@ public class DBBookDetailActivity extends SingleFragmentActivity {
     {
         //Intent intent = new Intent(DBBookDetailActivity.this, MarkActivity.class);
         //startActivity(intent);
-        //
+        ////
         AlertDialog.Builder builder = new AlertDialog.Builder(DBBookDetailActivity.this);
         builder.setTitle("标记书籍状态");
         final String[] str = new String[] { "正在读", "准备读", "已经读" };

@@ -12,9 +12,7 @@ import java.util.List;
 import cn.lemene.BookTrace.R;
 import cn.lemene.BookTrace.module.Comment;
 
-/**
- * Created by dimon on 16/12/26.
- */
+
 
 public class CommentAdapter extends BaseAdapter {
     Context mContext;

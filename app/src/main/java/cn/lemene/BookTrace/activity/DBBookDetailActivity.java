@@ -28,6 +28,8 @@ public class DBBookDetailActivity extends SingleFragmentActivity {
         setContentView(R.layout.activity_book_detail);
     }
 
+    private String mark_state;
+
     @Override
     public Fragment createFragment() {
         return DBBookDetailFragment.newInstance(getExtraBook());
@@ -44,7 +46,6 @@ public class DBBookDetailActivity extends SingleFragmentActivity {
             case android.R.id.home:
                 onBackPressed();
                 return true;
-
             default:
                 return super.onContextItemSelected(item);
         }
@@ -68,6 +69,11 @@ public class DBBookDetailActivity extends SingleFragmentActivity {
                 Toast.makeText(DBBookDetailActivity.this, str[i],
                         Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
+                mark_state = str[i];
+
+                //add communication here
+
+
             }
         });
         builder.show();

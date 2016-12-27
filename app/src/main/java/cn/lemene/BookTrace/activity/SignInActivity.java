@@ -122,7 +122,8 @@ public class SignInActivity extends AppCompatActivity {
                 Logger.d("query book done");
                 UserContainer.isLogFlag = response.body().getResult();
                 if (UserContainer.isLogFlag == true) {
-                    UserContainer.username = (response.body().getUser()).getUsername();
+                    UserContainer.username = response.body().getUser().getUsername();
+                    UserContainer.userID = response.body().getUser().getId();
                 }
 
                // Logger.d(UserContainer.username);

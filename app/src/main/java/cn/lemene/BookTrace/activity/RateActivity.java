@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
@@ -105,7 +106,7 @@ public class RateActivity extends Activity implements RatingBar.OnRatingBarChang
             paramsMap.put("grade", Float.toString(rate));
             String strEntity = gson.toJson(paramsMap);
             RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json;charset=UTF-8"), strEntity);
-            Call<GradeAddResponse> call =  graSer.getGradeAddResult(body);
+            Call<GradeAddResponse> call = graSer.getGradeAddResult(body);
             call.enqueue(new Callback<GradeAddResponse>() {
 
                 @Override
@@ -118,10 +119,11 @@ public class RateActivity extends Activity implements RatingBar.OnRatingBarChang
 
                 }
             });
+            Toast.makeText(getBaseContext(), "评论成功", Toast.LENGTH_SHORT).show();
         }
 
         else {
-            //implement code here
+            Toast.makeText(getBaseContext(), "尚未登录，不能评分", Toast.LENGTH_SHORT).show();
         }
 
         finish();
@@ -133,5 +135,4 @@ public class RateActivity extends Activity implements RatingBar.OnRatingBarChang
     }
 
 }
-
 

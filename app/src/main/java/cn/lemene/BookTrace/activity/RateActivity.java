@@ -2,16 +2,30 @@ package cn.lemene.BookTrace.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.google.gson.Gson;
+import com.orhanobut.logger.Logger;
 
-import butterknife.BindView;
+import java.util.HashMap;
+
 import cn.lemene.BookTrace.R;
+import cn.lemene.BookTrace.interfaces.GradeAddService;
+import cn.lemene.BookTrace.module.GradeAddResponse;
+import cn.lemene.BookTrace.module.UserContainer;
+import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
+import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RateActivity extends Activity implements RatingBar.OnRatingBarChangeListener {
     private RatingBar mSmallRatingBar;
@@ -69,6 +83,47 @@ public class RateActivity extends Activity implements RatingBar.OnRatingBarChang
 
     public void confirm(View view)
     {
+        if (UserContainer.isLogFlag == true) {
+            HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
+            httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+            OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                    .addInterceptor(httpLoggingInterceptor)
+                    .build();
+
+            Retrofit retrofit = new Retrofit.Builder().addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                    .client(okHttpClient)
+                    .baseUrl(UserContainer.BASE_IP_ADDRESS)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+
+            GradeAddService.gradeAddService graSer = retrofit.create(GradeAddService.gradeAddService.class);
+
+            Gson gson = new Gson();
+            HashMap<String, String> paramsMap = new HashMap<>();
+            paramsMap.put("userid", UserContainer.userID);
+            paramsMap.put("id", id);
+            paramsMap.put("grade", Float.toString(rate));
+            String strEntity = gson.toJson(paramsMap);
+            RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json;charset=UTF-8"), strEntity);
+            Call<GradeAddResponse> call =  graSer.getGradeAddResult(body);
+            call.enqueue(new Callback<GradeAddResponse>() {
+
+                @Override
+                public void onResponse(Call<GradeAddResponse> call, Response<GradeAddResponse> response) {
+                    Logger.d("Rating done");
+                }
+
+                @Override
+                public void onFailure(Call<GradeAddResponse> call, Throwable t) {
+
+                }
+            });
+        }
+
+        else {
+            //implement code here
+        }
+
         finish();
     }
 
@@ -78,4 +133,5 @@ public class RateActivity extends Activity implements RatingBar.OnRatingBarChang
     }
 
 }
+
 

@@ -7,7 +7,7 @@ import android.view.View;
  * @author cengt
  * @date 2016-8-15 上午9:52:24
  * @version v1.0
- * @param <T>
+
  */
 public abstract class CommonViewHolder<T> {
 	protected View view;

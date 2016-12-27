@@ -7,9 +7,12 @@ import java.util.List;
  */
 
 public class UserContainer {
+    public static String BASE_IP_ADDRESS = "http://192.168.31.230:8080/";
     public static boolean isLogFlag;
+    public static String userID;
     public static String username;
     public static List<String> wantReadList;
     public static List<String> readingList;
     public static List<String> hasReadList;
 }
+

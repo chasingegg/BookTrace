@@ -21,6 +21,10 @@ public class User implements Serializable {
     @SerializedName("id")
     private String mId;
 
+    /** 用户名 */
+    @SerializedName("username")
+    private String mUsername;
+
     /** 想读的书 */
     @SerializedName("bookWant")
     private List<String> mBookWant;
@@ -34,9 +38,8 @@ public class User implements Serializable {
     static List<String> mBookRead;
 
     public User() {
-        mId = UserContainer.username;
-        //List<String> a = new ArrayList<>();
-        //a.add("3333");
+        mUsername = UserContainer.username;
+        mId =UserContainer.userID;
         mBookWant = UserContainer.wantReadList;
         mBookReading = UserContainer.readingList;
         mBookRead = UserContainer.hasReadList;
@@ -48,6 +51,14 @@ public class User implements Serializable {
 
     public void setId(String id) {
         mId = id;
+    }
+
+    public String getUsername() {
+        return mUsername;
+    }
+
+    public void setUsername(String username) {
+        mUsername = username;
     }
 
     public List<String> getBookWant() {

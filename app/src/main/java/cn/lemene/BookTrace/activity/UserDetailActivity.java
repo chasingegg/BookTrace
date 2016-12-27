@@ -2,6 +2,7 @@ package cn.lemene.BookTrace.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.MenuItem;
 
 import cn.lemene.BookTrace.R;
 import cn.lemene.BookTrace.fragment.UserDetailFragment;
@@ -36,7 +37,7 @@ public class UserDetailActivity extends SingleFragmentActivity {
         return R.id.user_detail_fragment_container;
     }
 
-    /*@Override
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
@@ -46,7 +47,7 @@ public class UserDetailActivity extends SingleFragmentActivity {
             default:
                 return super.onContextItemSelected(item);
         }
-    }*/
+    }
 
     /*private User getUser() {
         return mUser;

@@ -5,11 +5,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-/**
- * 管理Retrofit
- * @author snail 2016/10/22 14:44
- * @version v1.0
- */
+
 
 public class RetrofitManager {
     private static transient RetrofitManager sIntance;

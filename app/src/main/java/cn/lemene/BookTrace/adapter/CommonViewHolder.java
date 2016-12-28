@@ -2,13 +2,7 @@ package cn.lemene.BookTrace.adapter;
 
 import android.view.View;
 
-/**
- * 通用的 MyViewHolder
- * @author cengt
- * @date 2016-8-15 上午9:52:24
- * @version v1.0
 
- */
 public abstract class CommonViewHolder<T> {
 	protected View view;
 

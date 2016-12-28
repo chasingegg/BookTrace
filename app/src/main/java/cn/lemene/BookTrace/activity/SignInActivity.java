@@ -14,12 +14,15 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.lemene.BookTrace.R;
 import cn.lemene.BookTrace.interfaces.LogService;
+import cn.lemene.BookTrace.module.Books;
 import cn.lemene.BookTrace.module.LogResultResponse;
 import cn.lemene.BookTrace.module.UserContainer;
 import okhttp3.OkHttpClient;
@@ -124,9 +127,40 @@ public class SignInActivity extends AppCompatActivity {
                 if (UserContainer.isLogFlag == true) {
                     UserContainer.username = response.body().getUser().getUsername();
                     UserContainer.userID = response.body().getUser().getId();
+                    List<Books> tmp = response.body().getUser().getBooks();
+
+                    UserContainer.wantReadList = new ArrayList<String>();
+                    UserContainer.readingList = new ArrayList<String>();
+                    UserContainer.hasReadList = new ArrayList<String>();
+
+
+
+                    for (Books instanceBooks:tmp) {
+
+                        String result = instanceBooks.getBookname();
+
+                        if (instanceBooks.getStatus().equals("正在读")) {
+                            UserContainer.readingList.add(result);
+                        }
+
+                        else if (instanceBooks.getStatus().equals("准备读")) {
+                            UserContainer.wantReadList.add(result);
+                        }
+
+                        else if (instanceBooks.getStatus().equals("已经读")) {
+                            UserContainer.hasReadList.add(result);
+                        }
+                    }
+
+                    Toast.makeText(getBaseContext(), "登录成功！", Toast.LENGTH_SHORT).show();
+
                 }
-                Toast.makeText(getBaseContext(), "登录成功！", Toast.LENGTH_SHORT).show();
-            }
+
+                else {
+                    Toast.makeText(getBaseContext(), "用户名或密码错误！", Toast.LENGTH_SHORT).show();
+                }
+
+                }
 
             @Override
             public void onFailure(Call<LogResultResponse> call, Throwable t) {

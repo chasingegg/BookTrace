@@ -30,11 +30,7 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-/**
- * 豆瓣图书详情页面
- * @author snail 2016/10/24 14:22
- * @version v1.0
- */
+
 public class DBBookDetailActivity extends SingleFragmentActivity {
 
     public static final String KEY_BOOK = "activity_db_book_detail_key_book";
@@ -86,7 +82,7 @@ public class DBBookDetailActivity extends SingleFragmentActivity {
                 dialog.dismiss();
                 markStatus=str[i];
 
-                DBBook tmp = getExtraBook();
+                final DBBook tmp = getExtraBook();
                 if (UserContainer.isLogFlag == true) {
                     HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
                     httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -114,7 +110,19 @@ public class DBBookDetailActivity extends SingleFragmentActivity {
                     call.enqueue(new Callback<CommonResponse>() {
                         @Override
                         public void onResponse(Call<CommonResponse> call, Response<CommonResponse> response) {
+                            String result = tmp.getTitle();
 
+                            if (markStatus.equals("正在读")) {
+                                UserContainer.readingList.add(result);
+                            }
+
+                            else if (markStatus.equals("准备读")) {
+                                UserContainer.wantReadList.add(result);
+                            }
+
+                            else if (markStatus.equals("已经读")) {
+                                UserContainer.hasReadList.add(result);
+                            }
                         }
 
                         @Override

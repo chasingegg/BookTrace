@@ -2,6 +2,8 @@ package cn.lemene.BookTrace.module;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 /**
  * Created by dimon on 16/12/25.
  */
@@ -34,8 +36,12 @@ public class LogResultResponse {
         @SerializedName("password")
         private String password;
 
-        @SerializedName("book")     //待修改
-        private String book;
+        @SerializedName("books")
+        private List<Books> books;
+
+        public List<Books> getBooks() {
+            return this.books;
+        }
 
         public String getId() {return this.id;}
         public void setId(String id) {
@@ -54,13 +60,6 @@ public class LogResultResponse {
         }
         public void setPassword(String password) {
             this.password = password;
-        }
-
-        public String getBook() {
-            return this.book;
-        }
-        public void setBook(String book) {
-            this.book = book;
         }
     }
 }

@@ -6,11 +6,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.util.AttributeSet;
 
-/**
- * 侧滑导航栏组件
- * @author snail 2016/10/20 15:13
- * @version v1.0
- */
+
 
 public class MainNavigationView extends NavigationView
          {

@@ -4,8 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 /**
  * 豆瓣图书搜索出错的响应
- * @author snail 2016/10/27 17:02
- * @version v1.0
+
  */
 
 public class QueryDBBookErrorRespone {

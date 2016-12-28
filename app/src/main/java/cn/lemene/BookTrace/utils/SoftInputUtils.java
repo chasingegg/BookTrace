@@ -5,11 +5,7 @@ import android.content.Context;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
-/**
- * 软键盘工具类
- * @author snail 2016/10/24 17:46
- * @version v1.0
- */
+
 
 public class SoftInputUtils {
     /**

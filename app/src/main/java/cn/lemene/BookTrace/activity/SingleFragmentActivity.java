@@ -9,11 +9,7 @@ import com.orhanobut.logger.Logger;
 
 import me.majiajie.swipeback.SwipeBackActivity;
 
-/**
- * 单一Fragment的Activity
- * @author snail 2016/10/25 9:41
- * @version v1.0
- */
+
 
 public abstract class SingleFragmentActivity extends SwipeBackActivity {
     public abstract Fragment createFragment();

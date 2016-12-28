@@ -4,10 +4,7 @@ import android.content.Context;
 
 import cn.lemene.BookTrace.R;
 
-/**
- * @author snail 2016/10/27 15:55
- * @version v1.0
- */
+
 
 public class DBErrorManager {
     private static transient DBErrorManager sIntance;

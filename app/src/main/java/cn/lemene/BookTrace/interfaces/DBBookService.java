@@ -7,8 +7,7 @@ import retrofit2.http.Query;
 
 /**
  * 豆瓣读书API
- * @author snail 2016/10/22 11:20
- * @version v1.0
+
  */
 
 public interface DBBookService {

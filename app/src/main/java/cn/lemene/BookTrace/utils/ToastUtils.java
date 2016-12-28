@@ -4,11 +4,7 @@ import android.content.Context;
 import android.view.Gravity;
 import android.widget.Toast;
 
-/**
- * Toast工具类, 可以显示一个Toast
- * @author snail 2016/10/27 9:36
- * @version v1.0
- */
+
 
 public class ToastUtils {
     private static Toast sToast;

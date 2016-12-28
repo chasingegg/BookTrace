@@ -59,46 +59,6 @@ public class RateActivity extends Activity implements RatingBar.OnRatingBarChang
         Intent intent = getIntent();
         id = intent.getStringExtra("bookId");
 
-        mRatingText = (TextView) findViewById(R.id.rating);
-        mRatingText.setText("用户评分：" + 0 + "/" + 5);
-
-        // We copy the most recently changed rating on to these indicator-only
-        // rating bars
-        mIndicatorRatingBar = (RatingBar) findViewById(R.id.indicator_ratingbar);
-        mSmallRatingBar = (RatingBar) findViewById(R.id.small_ratingbar);
-
-
-
-      //  averageRate = gradeGet.getAverageGrade();
-         averageRate = (float)3.4;
-
-
-        System.out.println("The averageRate is: " + averageRate);
-
-        float rest_part = averageRate - (int)averageRate;
-        if (rest_part < 0.5001)
-        {
-            if ((0.5001 - rest_part) < 0.25)
-                averageRate_display = (int)averageRate + (float)0.5;
-            else
-                averageRate_display = (int)averageRate;
-        }
-        else
-        {
-            if ((rest_part - 0.5001) < 0.25)
-                averageRate_display = (int)averageRate + (float)0.5;
-            else
-                averageRate_display = (int)averageRate + 1;
-        }
-
-        mAverageRatingText = (TextView) findViewById(R.id.average_rating);
-        mAverageRatingText.setText("当前评分：" + averageRate_display);
-
-        mIndicatorRatingBar.setRating(averageRate_display);
-
-        // The different rating bars in the layout. Assign the listener to us.
-        ((RatingBar)findViewById(R.id.ratingbar)).setOnRatingBarChangeListener(this);
-
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
         httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
@@ -117,6 +77,29 @@ public class RateActivity extends Activity implements RatingBar.OnRatingBarChang
             @Override
             public void onResponse(Call<GradeGetResponse> call, Response<GradeGetResponse> response) {
                 gradeGet = response.body();
+                averageRate = gradeGet.getAverageGrade();
+
+                float rest_part = averageRate - (int)averageRate;
+                if (rest_part < 0.5001)
+                {
+                    if ((0.5001 - rest_part) < 0.25)
+                        averageRate_display = (int)averageRate + (float)0.5;
+                    else
+                        averageRate_display = (int)averageRate;
+                }
+                else
+                {
+                    if ((rest_part - 0.5001) < 0.25)
+                        averageRate_display = (int)averageRate + (float)0.5;
+                    else
+                        averageRate_display = (int)averageRate + 1;
+                }
+
+                mAverageRatingText = (TextView) findViewById(R.id.average_rating);
+                mAverageRatingText.setText("当前评分：" + averageRate_display);
+
+                mIndicatorRatingBar = (RatingBar)findViewById(R.id.indicator_ratingbar);
+                mIndicatorRatingBar.setRating(averageRate_display);
             }
 
             @Override
@@ -125,20 +108,28 @@ public class RateActivity extends Activity implements RatingBar.OnRatingBarChang
             }
         });
 
+        // The different rating bars in the layout. Assign the listener to us.
+        ((RatingBar)findViewById(R.id.ratingbar)).setOnRatingBarChangeListener(this);
+
+
     }
 
     @Override
     public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
         final int numStars = ratingBar.getNumStars();
+
+        mRatingText = (TextView)findViewById(R.id.rating);
         mRatingText.setText("用户评分：" + rating + "/" + numStars);
 
+        mSmallRatingBar = (RatingBar)findViewById(R.id.small_ratingbar) ;
         mSmallRatingBar.setRating(rating);
 
-        final float ratingBarStepSize = ratingBar.getStepSize();
+  /*      final float ratingBarStepSize = ratingBar.getStepSize();
         if (mIndicatorRatingBar.getStepSize() != ratingBarStepSize) {
             mIndicatorRatingBar.setStepSize(ratingBarStepSize);
             mSmallRatingBar.setStepSize(ratingBarStepSize);
         }
+  */
         rate = rating;
 
     }

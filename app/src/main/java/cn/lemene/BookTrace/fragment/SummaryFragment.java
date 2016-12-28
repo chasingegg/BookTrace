@@ -15,11 +15,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.lemene.BookTrace.R;
 
-/**
- * 简介页面
- * @author snail 2016/10/27 17:18
- * @version v1.0
- */
+
 public class SummaryFragment extends Fragment {
     private String mSummary;
 

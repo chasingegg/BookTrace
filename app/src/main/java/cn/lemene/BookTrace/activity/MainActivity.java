@@ -3,6 +3,7 @@ package cn.lemene.BookTrace.activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
@@ -17,6 +18,12 @@ import android.view.MenuItem;
 
 import com.orhanobut.logger.Logger;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.lemene.BookTrace.R;
@@ -24,11 +31,7 @@ import cn.lemene.BookTrace.module.UserContainer;
 import cn.lemene.BookTrace.view.DBBookSearchView;
 import cn.lemene.BookTrace.view.MainNavigationView;
 
-/**
- * 主页面
- * @author snail 2016/10/20
- * @version v1.0
- */
+
 public class MainActivity extends AppCompatActivity {
     @BindView(R.id.toolbar)
     protected Toolbar mToolbar;
@@ -48,6 +51,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         UserContainer.username = "DefaultUser";
         UserContainer.userID = "99999999";
+        UserContainer.wantReadList = new ArrayList<>() ;
+        UserContainer.wantReadList.add("please login.");
+        UserContainer.readingList = new ArrayList<>() ;
+        UserContainer.readingList.add("please login.");
+        UserContainer.hasReadList = new ArrayList<>() ;
+        UserContainer.hasReadList.add("please login.");
         init();
 
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {

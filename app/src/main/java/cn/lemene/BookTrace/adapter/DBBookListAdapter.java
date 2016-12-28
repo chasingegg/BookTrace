@@ -17,11 +17,7 @@ import butterknife.ButterKnife;
 import cn.lemene.BookTrace.R;
 import cn.lemene.BookTrace.module.DBBook;
 
-/**
- * 图书列表适配器
- * @author snail 2016/10/24 11:23
- * @version v1.0
- */
+
 
 public class DBBookListAdapter extends RecyclerView.Adapter<DBBookListAdapter.MyViewHolder> {
     private Context mContext;

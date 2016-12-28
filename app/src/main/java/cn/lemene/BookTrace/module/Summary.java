@@ -1,11 +1,6 @@
 package cn.lemene.BookTrace.module;
 
-/**
- * Project name: BoringLife
- * Package name: cn.lemene.boringlife.module
- * Created by snail on 10/28/16 22:07.
- * @version v1.0
- */
+
 
 public class Summary {
     private String title;

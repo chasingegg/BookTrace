@@ -8,24 +8,8 @@ import java.util.ArrayList;
 
 import cn.lemene.BookTrace.R;
 import cn.lemene.BookTrace.fragment.UserDetailFragment;
-import cn.lemene.BookTrace.interfaces.UserInformationService;
-import cn.lemene.BookTrace.module.Books;
-import cn.lemene.BookTrace.module.UserContainer;
-import cn.lemene.BookTrace.module.UserInformationResponse;
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
 
-/**
- * 豆瓣图书详情页面
- * @author snail 2016/10/24 14:22
- * @version v1.0
- */
+
 public class UserDetailActivity extends SingleFragmentActivity {
 
     public static final String USER_KEY = "activity_user_detail";

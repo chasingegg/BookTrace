@@ -1,8 +1,6 @@
 package cn.lemene.BookTrace.fragment;
 
-/**
- * Created by xu on 2016/12/25.
- */
+
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -26,26 +24,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.lemene.BookTrace.R;
 import cn.lemene.BookTrace.adapter.BookSummaryAdapter;
-import cn.lemene.BookTrace.interfaces.UserInformationService;
-import cn.lemene.BookTrace.module.Books;
 import cn.lemene.BookTrace.module.Summary;
 import cn.lemene.BookTrace.module.User;
 import cn.lemene.BookTrace.module.UserContainer;
-import cn.lemene.BookTrace.module.UserInformationResponse;
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
 
-/**
- * 用户详情页面
- * @author snail 2016/10/25 9:38
- * @version v1.0
- */
 
 public class UserDetailFragment extends Fragment {
     private User mUser ;
@@ -69,55 +51,15 @@ public class UserDetailFragment extends Fragment {
 
     public static UserDetailFragment newInstance() {
         User user = new User();
-        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
-        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .addInterceptor(httpLoggingInterceptor)
-                .build();
-
-        Retrofit retrofit = new Retrofit.Builder().addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .client(okHttpClient)
-                .baseUrl(UserContainer.BASE_IP_ADDRESS)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        UserInformationService.userInformationService useSer = retrofit.create(UserInformationService.userInformationService.class);
-        Call<UserInformationResponse> call = useSer.getUserInformation(UserContainer.username);
-        call.enqueue(new Callback<UserInformationResponse>() {
-            @Override
-            public void onResponse(Call<UserInformationResponse> call, Response<UserInformationResponse> response) {
-                UserInformationResponse tmp = response.body();
-
-                UserContainer.wantReadList = new ArrayList<String>();
-                UserContainer.readingList = new ArrayList<String>();
-                UserContainer.hasReadList = new ArrayList<String>();
-
-
-
-                for (Books instanceBooks:tmp.getBooks()) {
-
-                    String result = instanceBooks.getBookname();
-
-                    if (instanceBooks.getStatus().equals("正在读")) {
-                        UserContainer.readingList.add(result);
-                    }
-
-                    else if (instanceBooks.getStatus().equals("准备读")) {
-                        UserContainer.wantReadList.add(result);
-                    }
-
-                    else if (instanceBooks.getStatus().equals("已经读")) {
-                        UserContainer.hasReadList.add(result);
-                    }
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<UserInformationResponse> call, Throwable t) {
-
-            }
-        });
+        for (String tmp:user.getBookWant()) {
+            System.out.println("想读的书："+tmp);
+        }
+        for (String tmp:user.getBookReading()) {
+            System.out.println("正在读的书："+tmp);
+        }
+        for (String tmp:user.getBookRead()) {
+            System.out.println("读过的书：："+tmp);
+        }
         Bundle args = new Bundle();
         args.putSerializable(USER_KEY,user);
         UserDetailFragment fragment = new UserDetailFragment();
@@ -149,6 +91,7 @@ public class UserDetailFragment extends Fragment {
         Bundle args = getArguments();
         if (args != null) {
             mUser = (User) args.getSerializable(USER_KEY);
+
         }
         checkBook();
     }
@@ -165,11 +108,11 @@ public class UserDetailFragment extends Fragment {
     }
 
     private void initViewPager() {
-        System.out.println("wantREAD IS:"+UserContainer.wantReadList);
+
         List<Summary> summaries = new ArrayList<>();
         summaries.add(new Summary(getString(R.string.book_want), mUser.getBookWantString()));
         summaries.add(new Summary(getString(R.string.book_reading), mUser.getBookReadingString()));
-        summaries.add(new Summary(getString(R.string.book_read), mUser.getBookReadingString()));
+        summaries.add(new Summary(getString(R.string.book_read), mUser.getBookReadString()));
         mViewPager.setAdapter(new BookSummaryAdapter(getChildFragmentManager(), summaries));
     }
 

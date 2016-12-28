@@ -7,11 +7,7 @@ import com.google.gson.GsonBuilder;
 
 import cn.lemene.BookTrace.module.QueryDBBookErrorRespone;
 
-/**
- * 转换豆瓣图书错误信息
- * @author snail 2016/10/27 17:32
- * @version v1.0
- */
+
 
 public class QueryDBBookErrorConvertor {
     public static QueryDBBookErrorRespone fromJson(String json) {

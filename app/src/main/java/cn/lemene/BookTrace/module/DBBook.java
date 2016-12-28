@@ -5,11 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import java.util.List;
 
-/**
- * 豆瓣图书实体类
- * @author snail 2016/10/22 17:55
- * @version v1.0
- */
+
 
 public class DBBook implements Serializable {
     /** ID */

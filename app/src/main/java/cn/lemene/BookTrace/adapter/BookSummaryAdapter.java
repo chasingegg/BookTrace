@@ -9,9 +9,7 @@ import java.util.List;
 import cn.lemene.BookTrace.fragment.SummaryFragment;
 import cn.lemene.BookTrace.module.Summary;
 
-/**
- * @author snail 2016/10/28 17:29
- */
+
 
 public class BookSummaryAdapter extends FragmentPagerAdapter {
     private List<Summary> mSummaries;

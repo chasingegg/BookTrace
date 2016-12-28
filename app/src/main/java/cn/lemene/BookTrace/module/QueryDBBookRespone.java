@@ -6,8 +6,7 @@ import java.util.List;
 
 /**
  * 豆瓣图书搜索结果的响应
- * @author snail 2016/10/22 12:44
- * @version v1.0
+
  */
 
 public class QueryDBBookRespone {

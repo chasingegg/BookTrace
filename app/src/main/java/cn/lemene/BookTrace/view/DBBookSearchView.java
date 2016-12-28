@@ -37,11 +37,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-/**
- * 豆瓣图书搜索结果组件
- * @author snail 2016/10/24 14:58
- * @version v1.0
- */
+
 
 public class DBBookSearchView extends RelativeLayout
         implements SwipeRefreshLayout.OnRefreshListener,

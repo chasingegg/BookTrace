@@ -25,11 +25,7 @@ import cn.lemene.BookTrace.adapter.BookSummaryAdapter;
 import cn.lemene.BookTrace.module.DBBook;
 import cn.lemene.BookTrace.module.Summary;
 
-/**
- * 豆瓣图书详情页面
- * @author snail 2016/10/25 9:38
- * @version v1.0
- */
+
 
 public class DBBookDetailFragment extends Fragment {
     private DBBook mBook;

@@ -10,11 +10,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * 用户实体类
- * @author snail 2016/11/25 17:55
- * @version v1.0
- */
 
 public class User implements Serializable {
     /** ID */
@@ -86,7 +81,7 @@ public class User implements Serializable {
     }
 
     public String getBookWantString() {
-        String tmp="Please login in.";
+        String tmp="Please login.";
         String tmp2 = "No book.";
         if(UserContainer.username.equals("DefaultUser")) {
             return tmp;
@@ -98,7 +93,7 @@ public class User implements Serializable {
     }
 
     public String getBookReadingString() {
-        String tmp = "Please login in.";
+        String tmp = "Please login.";
         String tmp2 = "No book.";
         if(UserContainer.username.equals("DefaultUser")) {
             return tmp;
@@ -110,7 +105,7 @@ public class User implements Serializable {
     }
 
     public String getBookReadString() {
-        String tmp="Please login in.";
+        String tmp="Please login.";
         String tmp2 = "No book.";
         if(UserContainer.username.equals("DefaultUser")) {
             return tmp;
@@ -130,7 +125,7 @@ public class User implements Serializable {
         StringBuilder builder = new StringBuilder();
         if (list != null && list.size() > 0) {
             int i;
-            for (i = 0; i < list.size() - 2; i++) {
+            for (i = 0; i < list.size() - 1; i++) {
                 builder.append(list.get(i));
                 builder.append('\n');
             }

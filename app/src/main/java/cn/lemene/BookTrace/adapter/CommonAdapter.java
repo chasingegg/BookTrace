@@ -8,13 +8,7 @@ import android.widget.BaseAdapter;
 
 import java.util.List;
 
-/**
- * 通用的 Adapter
- * @author cengt
- * @date 2016-8-15 上午9:53:18
- * @version v.10
- * @param <T>
- */
+
 public abstract class CommonAdapter<T> extends BaseAdapter {
 	protected Context mContext;
     protected List<T> mList;

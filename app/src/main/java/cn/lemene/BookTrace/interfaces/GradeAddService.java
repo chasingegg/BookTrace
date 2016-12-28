@@ -6,6 +6,7 @@ import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import cn.lemene.BookTrace.module.CommonResponse;
 
 /**
  * Created by WZZ on 2016/12/26.
@@ -17,6 +18,6 @@ public class GradeAddService {
 	public interface gradeAddService {
 		@Headers({"Content-type:application/json;charset=UTF-8"})
 		@POST(GET_GRADE_ADD_INFORMATION)
-		Call<GradeAddResponse> getGradeAddResult(@Body RequestBody route);
+		Call<CommonResponse> getGradeAddResult(@Body RequestBody route);
 	}
 }

@@ -1,5 +1,6 @@
 package cn.lemene.BookTrace.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -7,6 +8,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
@@ -18,6 +20,7 @@ import com.orhanobut.logger.Logger;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.lemene.BookTrace.R;
+import cn.lemene.BookTrace.module.UserContainer;
 import cn.lemene.BookTrace.view.DBBookSearchView;
 import cn.lemene.BookTrace.view.MainNavigationView;
 
@@ -43,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        UserContainer.username = "DefaultUser";
+        UserContainer.userID = "99999999";
         init();
 
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -98,8 +103,31 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
                 break;
             case R.id.nav_gallery:
-                Intent intent1 = new Intent(this, SignInActivity.class);
-                startActivity(intent1);
+                if(!UserContainer.username.equals("DefaultUser"))
+                {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                    builder.setTitle("确定注销登录?");
+                    builder.setCancelable(false);
+                    builder.setPositiveButton("确定", new DialogInterface.OnClickListener(){
+                        public void onClick(DialogInterface dialog, int which)
+                        {
+                            UserContainer.username = "DefaultUser";
+                            UserContainer.userID = "99999999";
+                        }
+                    });
+                    builder.setNegativeButton("取消", new DialogInterface.OnClickListener(){
+                        public void onClick(DialogInterface dialog, int which)
+                        {
+
+                        }
+                    });
+                    builder.show();
+                }
+                else {
+                    //else start the login activity
+                    Intent intent1 = new Intent(this, SignInActivity.class);
+                    startActivity(intent1);
+                }
                 break;
             case R.id.nav_slideshow:
                 Intent intent2 = new Intent(this, AboutUsActivity.class);

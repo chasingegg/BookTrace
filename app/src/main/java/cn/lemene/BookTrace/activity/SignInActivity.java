@@ -78,10 +78,10 @@ public class SignInActivity extends AppCompatActivity {
     {
         Log.d(TAG, "SignIn");
 
-       /* if (!validate()) {
+        if (!validate()) {
             onLoginFailed();
             return;
-        }*/
+        }
 
         _loginButton.setEnabled(false);
 
@@ -103,7 +103,7 @@ public class SignInActivity extends AppCompatActivity {
 
         Retrofit retrofit = new Retrofit.Builder().addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .client(okHttpClient)
-                .baseUrl("http://10.189.49.101:8080/")
+                .baseUrl(UserContainer.BASE_IP_ADDRESS)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -125,14 +125,15 @@ public class SignInActivity extends AppCompatActivity {
                     UserContainer.username = response.body().getUser().getUsername();
                     UserContainer.userID = response.body().getUser().getId();
                 }
-
-               // Logger.d(UserContainer.username);
+                Toast.makeText(getBaseContext(), "登录成功！", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(Call<LogResultResponse> call, Throwable t) {
                 String msg = t.getLocalizedMessage();
                 Logger.e(t, "query book error " + msg);
+
+                Toast.makeText(getBaseContext(), "无法与服务器连接", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -172,7 +173,7 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     public void onLoginFailed() {
-        Toast.makeText(getBaseContext(), "Signin failed", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getBaseContext(), "登录失败", Toast.LENGTH_SHORT).show();
 
         _loginButton.setEnabled(true);
     }
@@ -183,17 +184,24 @@ public class SignInActivity extends AppCompatActivity {
         String email = _emailText.getText().toString();
         String password = _passwordText.getText().toString();
 
-        if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            _emailText.setError("enter a valid email address");
+        if (email.isEmpty()) {
+            _emailText.setError("用户名不能为空");
             valid = false;
         } else {
             _emailText.setError(null);
         }
 
-        if (password.isEmpty() || password.length() < 4 || password.length() > 10) {
-            _passwordText.setError("between 4 and 10 alphanumeric characters");
+        if (password.isEmpty()) {
+            _passwordText.setError("密码不能为空");
             valid = false;
-        } else {
+        }
+
+        else if ( password.length() < 4 || password.length() > 10) {
+            _passwordText.setError("密码长度必须为4到10位");
+            valid = false;
+        }
+
+        else {
             _passwordText.setError(null);
         }
 

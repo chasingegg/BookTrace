@@ -4,8 +4,22 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+
 import cn.lemene.BookTrace.R;
 import cn.lemene.BookTrace.fragment.UserDetailFragment;
+import cn.lemene.BookTrace.interfaces.UserInformationService;
+import cn.lemene.BookTrace.module.Books;
+import cn.lemene.BookTrace.module.UserContainer;
+import cn.lemene.BookTrace.module.UserInformationResponse;
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * 豆瓣图书详情页面
@@ -23,14 +37,16 @@ public class UserDetailActivity extends SingleFragmentActivity {
         //mApp = (MyApplication) getApplication();
         //user = mApp.getUser();
         super.onCreate(savedInstanceState);
-        System.out.println("come here");
         setContentView(R.layout.activity_user_detail);
+
+
     }
 
     @Override
     public Fragment createFragment() {
         return UserDetailFragment.newInstance();
     }
+
 
     @Override
     public int getFragmentContainer() {

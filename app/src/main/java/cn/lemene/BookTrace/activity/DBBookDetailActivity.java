@@ -9,9 +9,26 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.orhanobut.logger.Logger;
+
+import java.util.HashMap;
+
 import cn.lemene.BookTrace.R;
 import cn.lemene.BookTrace.fragment.DBBookDetailFragment;
+import cn.lemene.BookTrace.interfaces.MarkService;
+import cn.lemene.BookTrace.module.CommonResponse;
 import cn.lemene.BookTrace.module.DBBook;
+import cn.lemene.BookTrace.module.UserContainer;
+import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
+import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * 豆瓣图书详情页面
@@ -21,14 +38,13 @@ import cn.lemene.BookTrace.module.DBBook;
 public class DBBookDetailActivity extends SingleFragmentActivity {
 
     public static final String KEY_BOOK = "activity_db_book_detail_key_book";
+    private String markStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_detail);
     }
-
-    private String mark_state;
 
     @Override
     public Fragment createFragment() {
@@ -46,6 +62,7 @@ public class DBBookDetailActivity extends SingleFragmentActivity {
             case android.R.id.home:
                 onBackPressed();
                 return true;
+
             default:
                 return super.onContextItemSelected(item);
         }
@@ -58,9 +75,6 @@ public class DBBookDetailActivity extends SingleFragmentActivity {
 
     public void Mark(View view)
     {
-        //Intent intent = new Intent(DBBookDetailActivity.this, MarkActivity.class);
-        //startActivity(intent);
-        ////
         AlertDialog.Builder builder = new AlertDialog.Builder(DBBookDetailActivity.this);
         builder.setTitle("标记书籍状态");
         final String[] str = new String[] { "正在读", "准备读", "已经读" };
@@ -70,11 +84,51 @@ public class DBBookDetailActivity extends SingleFragmentActivity {
                 Toast.makeText(DBBookDetailActivity.this, str[i],
                         Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
-                mark_state = str[i];
+                markStatus=str[i];
 
-                //add communication here
+                DBBook tmp = getExtraBook();
+                if (UserContainer.isLogFlag == true) {
+                    HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
+                    httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+                    OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                            .addInterceptor(httpLoggingInterceptor)
+                            .build();
 
+                    Retrofit retrofit = new Retrofit.Builder().addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                            .client(okHttpClient)
+                            .baseUrl(UserContainer.BASE_IP_ADDRESS)
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .build();
 
+                    MarkService.markService markSer = retrofit.create(MarkService.markService.class);
+
+                    Gson gson = new Gson();
+                    HashMap<String, String> paramsMap = new HashMap<>();
+                    paramsMap.put("id", tmp.getId());
+                    paramsMap.put("userid", UserContainer.userID);
+                    paramsMap.put("status", markStatus);
+                    paramsMap.put("bookname", tmp.getTitle());
+                    String strEntity = gson.toJson(paramsMap);
+                    RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json;charset=UTF-8"), strEntity);
+                    Call<CommonResponse> call = markSer.getMarkResult(body);
+                    call.enqueue(new Callback<CommonResponse>() {
+                        @Override
+                        public void onResponse(Call<CommonResponse> call, Response<CommonResponse> response) {
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<CommonResponse> call, Throwable t) {
+                            String msg = t.getLocalizedMessage();
+                            Logger.e(t, "query mark error " + msg);
+                        }
+                    });
+                    Toast.makeText(getBaseContext(), "标记成功", Toast.LENGTH_SHORT).show();
+                }
+
+                else {
+                    Toast.makeText(getBaseContext(), "尚未登录，无法标记", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         builder.show();
@@ -82,7 +136,12 @@ public class DBBookDetailActivity extends SingleFragmentActivity {
 
     public void Comment(View view)
     {
+        DBBook tmp = getExtraBook();
+
+        String id = tmp.getId();
+
         Intent intent = new Intent(DBBookDetailActivity.this, CommentActivity.class);
+        intent.putExtra("bookId",id);
         startActivity(intent);
     }
 

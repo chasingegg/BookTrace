@@ -21,6 +21,7 @@ import butterknife.ButterKnife;
 import cn.lemene.BookTrace.R;
 import cn.lemene.BookTrace.interfaces.LogService;
 import cn.lemene.BookTrace.module.LogResultResponse;
+import cn.lemene.BookTrace.module.UserContainer;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -74,12 +75,12 @@ public class SignUpActivity extends AppCompatActivity {
 
     public void signup() {
         Log.d(TAG, "Signup");
-/*
+
         if (!validate()) {
             onSignupFailed();
             return;
         }
-*/
+
         _signupButton.setEnabled(false);
 
         final ProgressDialog progressDialog = new ProgressDialog(SignUpActivity.this);
@@ -103,7 +104,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         Retrofit retrofit = new Retrofit.Builder().addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .client(okHttpClient)
-                .baseUrl("http://10.189.49.101:8080/")
+                .baseUrl(UserContainer.BASE_IP_ADDRESS)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -121,13 +122,17 @@ public class SignUpActivity extends AppCompatActivity {
             public void onResponse(Call<LogResultResponse> call, Response<LogResultResponse> response) {
                 Logger.d("query book done");
                 LogFlag = response.body().getResult();
-
+                if (LogFlag == true)
+                    Toast.makeText(getBaseContext(), "注册成功", Toast.LENGTH_SHORT).show();
+                else
+                    Toast.makeText(getBaseContext(), "注册失败", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(Call<LogResultResponse> call, Throwable t) {
                 String msg = t.getLocalizedMessage();
                 Logger.e(t, "query book error " + msg);
+                Toast.makeText(getBaseContext(), "无法与服务器连接", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -162,50 +167,25 @@ public class SignUpActivity extends AppCompatActivity {
         boolean valid = true;
 
         String name = _nameText.getText().toString();
-        //String address = _addressText.getText().toString();
-        //String email = _emailText.getText().toString();
-        //String mobile = _mobileText.getText().toString();
         String password = _passwordText.getText().toString();
         String reEnterPassword = _reEnterPasswordText.getText().toString();
 
         if (name.isEmpty() || name.length() < 3) {
-            _nameText.setError("at least 3 characters");
+            _nameText.setError("用户名至少为3位");
             valid = false;
         } else {
             _nameText.setError(null);
         }
-/*
-        if (address.isEmpty()) {
-            _addressText.setError("Enter Valid Address");
-            valid = false;
-        } else {
-            _addressText.setError(null);
-        }
 
-
-        if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            _emailText.setError("enter a valid email address");
-            valid = false;
-        } else {
-            _emailText.setError(null);
-        }
-
-        if (mobile.isEmpty() || mobile.length()!=10) {
-            _mobileText.setError("Enter Valid Mobile Number");
-            valid = false;
-        } else {
-            _mobileText.setError(null);
-        }
-*/
         if (password.isEmpty() || password.length() < 4 || password.length() > 10) {
-            _passwordText.setError("between 4 and 10 alphanumeric characters");
+            _passwordText.setError("密码长度应该为4位到10位之间");
             valid = false;
         } else {
             _passwordText.setError(null);
         }
 
         if (reEnterPassword.isEmpty() || reEnterPassword.length() < 4 || reEnterPassword.length() > 10 || !(reEnterPassword.equals(password))) {
-            _reEnterPasswordText.setError("Password Do not match");
+            _reEnterPasswordText.setError("与原密码不符");
             valid = false;
         } else {
             _reEnterPasswordText.setError(null);

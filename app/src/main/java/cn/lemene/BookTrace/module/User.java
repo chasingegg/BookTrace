@@ -86,27 +86,39 @@ public class User implements Serializable {
     }
 
     public String getBookWantString() {
-        String tmp="aaaa";
+        String tmp="Please login in.";
+        String tmp2 = "No book.";
+        if(UserContainer.username.equals("DefaultUser")) {
+            return tmp;
+        }
         if(mBookWant!=null) {
             return list2String(mBookWant);
         }
-        else{return tmp;}
+        else{return tmp2;}
     }
 
     public String getBookReadingString() {
-        String tmp="aaaa";
+        String tmp = "Please login in.";
+        String tmp2 = "No book.";
+        if(UserContainer.username.equals("DefaultUser")) {
+            return tmp;
+        }
         if(mBookReading!=null) {
             return list2String(mBookReading);
         }
-        else{return tmp;}
+        else{return tmp2;}
     }
 
     public String getBookReadString() {
-        String tmp="aaaa";
+        String tmp="Please login in.";
+        String tmp2 = "No book.";
+        if(UserContainer.username.equals("DefaultUser")) {
+            return tmp;
+        }
         if(mBookRead!=null) {
             return list2String(mBookRead);
         }
-        else{return tmp;}
+        else{return tmp2;}
     }
 
     /**

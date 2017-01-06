@@ -1,10 +1,10 @@
-## BookTrace
+# BookTrace
 
 a simple book-reminder app(front end part, you can refer to [this](https://github.com/wfnuser/BookTrace_backend) for the back end part).
 
 
 
-achived functions:
+acheived functions:
 
 - sign in/ sign up
 - browse and search books
@@ -25,7 +25,8 @@ development environment
 
 License
 
-- Apache License
+- Apache License  
+
 
 
 
